@@ -197,7 +197,7 @@ public class Empresas implements Serializable {
 
     @Override
     public String toString() {
-        return "sicor.modelo.Empresas[ idEmpresa=" + idEmpresa + " ]";
+        return razonSocial;
     }
     
 }

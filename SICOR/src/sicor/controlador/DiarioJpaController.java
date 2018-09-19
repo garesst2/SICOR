@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.swing.JOptionPane;
 import sicor.controlador.exceptions.NonexistentEntityException;
 import sicor.modelo.Diario;
 
@@ -201,6 +202,17 @@ public class DiarioJpaController implements Serializable {
         } finally {
             em.close();
         }
+    }
+    
+    public List<Diario> getDiarioByEmpresa(Object empresa){
+        List<Diario> valor = null;
+        EntityManager em = getEntityManager();
+        try {
+            valor =em.createQuery("SELECT d FROM Diario d WHERE d.idEmpresa = :idEmpresa",Diario.class).setParameter("idEmpresa", empresa).getResultList();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error: "+e.toString());
+        }
+        return valor;
     }
 
     public int getDiarioCount() {

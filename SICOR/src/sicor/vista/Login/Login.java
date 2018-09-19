@@ -44,6 +44,11 @@ public class Login extends javax.swing.JDialog {
         frmLogin_btnEntrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jLabel1.setText("USUARIO");
 
@@ -107,6 +112,10 @@ public class Login extends javax.swing.JDialog {
             this.dispose();
         }
     }//GEN-LAST:event_frmLogin_btnEntrarActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        System.exit(0);
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments

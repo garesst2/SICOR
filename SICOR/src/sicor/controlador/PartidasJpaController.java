@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.swing.JOptionPane;
 import sicor.controlador.exceptions.NonexistentEntityException;
 import sicor.modelo.Cheque;
 import sicor.modelo.Partidas;

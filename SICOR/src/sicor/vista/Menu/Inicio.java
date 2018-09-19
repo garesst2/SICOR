@@ -5,9 +5,17 @@
  */
 package sicor.vista.Menu;
 
+import java.util.List;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.swing.JOptionPane;
+import sicor.controlador.DiarioJpaController;
+import sicor.controlador.PartidasJpaController;
+import sicor.modelo.Diario;
 import sicor.modelo.Empresas;
+import sicor.modelo.Partidas;
 import sicor.modelo.Usuarios;
+import sicor.vista.Catalogos.frmEmpresas;
 import sicor.vista.Login.Login;
 
 /**
@@ -21,9 +29,26 @@ public class Inicio extends javax.swing.JFrame {
      */
     public static Usuarios usuarioGlobal;
     public static Empresas empresaGlobal;
+    public static Diario pdiarioGlobal;
+    private EntityManagerFactory emf = Persistence.createEntityManagerFactory("SICORPU");
     public Inicio() {
         initComponents();
         new Login(this, true).setVisible(true);
+        new frmSeleccionEmpresa(this, true).setVisible(true);
+        if(mostrarDiarioPorEmpresas().equals(null) || mostrarDiarioPorEmpresas().size()==0){
+            JOptionPane.showMessageDialog(null, "No existe ningun diario en esta empresa");
+            JOptionPane.showMessageDialog(null, "Antes de comenzar a operar debe de crear un nuevo diario");
+        }
+    }
+    
+    private List<Diario> mostrarDiarioPorEmpresas() {
+        try {
+            DiarioJpaController ctrDiario = new DiarioJpaController(emf);
+            return ctrDiario.getDiarioByEmpresa(empresaGlobal);
+        } catch (Exception e) {
+            JOptionPane.showConfirmDialog(null, "Ocurrio un error: " + e.toString());
+            return null;
+        }
     }
 
     /**
@@ -35,17 +60,34 @@ public class Inicio extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jButton1.setText("EMPRESAS");
+
+        jButton2.setText("DIARIOS");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(331, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(22, 22, 22)
+                .addComponent(jButton1)
+                .addGap(18, 18, 18)
+                .addComponent(jButton2)
+                .addContainerGap(214, Short.MAX_VALUE))
         );
 
         pack();
@@ -87,5 +129,7 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     // End of variables declaration//GEN-END:variables
 }

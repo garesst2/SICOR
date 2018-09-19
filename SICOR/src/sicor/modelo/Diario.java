@@ -48,6 +48,8 @@ public class Diario implements Serializable {
     @Basic(optional = false)
     @Column(nullable = false)
     private Integer idDiario;
+    @Column(length = 250)
+    private String nombDiario;
     private Integer año;
     private Integer mes;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -76,6 +78,14 @@ public class Diario implements Serializable {
 
     public void setIdDiario(Integer idDiario) {
         this.idDiario = idDiario;
+    }
+
+    public String getNombDiario() {
+        return nombDiario;
+    }
+
+    public void setNombDiario(String nombDiario) {
+        this.nombDiario = nombDiario;
     }
 
     public Integer getAño() {

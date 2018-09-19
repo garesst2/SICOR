@@ -10,6 +10,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.swing.JOptionPane;
 import sicor.controlador.DiarioJpaController;
+import sicor.controlador.EmpresasJpaController;
 import sicor.controlador.PartidasJpaController;
 import sicor.modelo.Diario;
 import sicor.modelo.Empresas;
@@ -62,6 +63,7 @@ public class Inicio extends javax.swing.JFrame {
 
         btnEmpresas = new javax.swing.JButton();
         btnDiarios = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,6 +81,13 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("PARTIDAS");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -87,7 +96,8 @@ public class Inicio extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnEmpresas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnDiarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnDiarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(331, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -97,7 +107,9 @@ public class Inicio extends javax.swing.JFrame {
                 .addComponent(btnEmpresas)
                 .addGap(18, 18, 18)
                 .addComponent(btnDiarios)
-                .addContainerGap(214, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap(173, Short.MAX_VALUE))
         );
 
         pack();
@@ -110,6 +122,15 @@ public class Inicio extends javax.swing.JFrame {
     private void btnDiariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDiariosActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDiariosActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        EmpresasJpaController ctr = new EmpresasJpaController(emf);
+        try {
+            Empresas nj = ctr.findEmpresas(Integer.parseInt("I"));
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error: "+e.toString());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,5 +170,6 @@ public class Inicio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDiarios;
     private javax.swing.JButton btnEmpresas;
+    private javax.swing.JButton jButton1;
     // End of variables declaration//GEN-END:variables
 }

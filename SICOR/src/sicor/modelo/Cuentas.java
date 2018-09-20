@@ -50,7 +50,8 @@ public class Cuentas implements Serializable {
     private Integer idCuenta;
     @Column(length = 150)
     private String codCuenta;
-    private Integer nombCuenta;
+    @Column(length = 250)
+    private String nombCuenta;
     private Boolean cargoDirecto;
     private Integer idTipoCuenta;
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
@@ -96,11 +97,11 @@ public class Cuentas implements Serializable {
         this.codCuenta = codCuenta;
     }
 
-    public Integer getNombCuenta() {
+    public String getNombCuenta() {
         return nombCuenta;
     }
 
-    public void setNombCuenta(Integer nombCuenta) {
+    public void setNombCuenta(String nombCuenta) {
         this.nombCuenta = nombCuenta;
     }
 

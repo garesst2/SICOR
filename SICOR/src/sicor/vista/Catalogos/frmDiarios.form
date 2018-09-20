@@ -27,15 +27,15 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="txtnombDiario" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtAño" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtMes" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblNomDiario" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lblaño" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="lñblmes" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="frmEmpresas_txtCodEmpresa2" alignment="0" max="32767" attributes="0"/>
-                          <Component id="frmEmpresas_txtCodEmpresa1" alignment="0" max="32767" attributes="0"/>
-                          <Component id="frmEmpresas_txtCodEmpresa" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtMes" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtAño" alignment="0" max="32767" attributes="0"/>
+                          <Component id="txtnombDiario" alignment="0" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                   <Component id="jSeparator1" max="32767" attributes="0"/>
@@ -53,6 +53,7 @@
                               <Component id="txtIdDiario" min="-2" max="-2" attributes="0"/>
                               <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
                           </Group>
+                          <Component id="btnSeleccionDiario" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -75,18 +76,18 @@
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblNomDiario" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtnombDiario" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="frmEmpresas_txtCodEmpresa" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lblaño" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtAño" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="frmEmpresas_txtCodEmpresa1" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="lñblmes" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txtMes" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="frmEmpresas_txtCodEmpresa2" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jSeparator1" min="-2" pref="10" max="-2" attributes="0"/>
@@ -95,6 +96,8 @@
                           <Component id="btnCrear" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="btnLimpiar" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="btnSeleccionDiario" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -145,7 +148,7 @@
                   <Editor/>
                   <Renderer/>
                 </Column>
-                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="true">
+                <Column maxWidth="0" minWidth="0" prefWidth="0" resizable="true">
                   <Title/>
                   <Editor/>
                   <Renderer/>
@@ -170,22 +173,27 @@
               <Subbinding sourcePath="${nombDiario}">
                 <BindingParameter name="NAME" value="Nomb Diario"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="String.class"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
               </Subbinding>
               <Subbinding sourcePath="${a&#xf1;o}">
                 <BindingParameter name="NAME" value="A&#xf1;o"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Integer.class"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
               </Subbinding>
               <Subbinding sourcePath="${mes}">
                 <BindingParameter name="NAME" value="Mes"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="Integer.class"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
               </Subbinding>
               <Subbinding sourcePath="${abonos}">
                 <BindingParameter name="NAME" value="Abonos"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="java.math.BigDecimal.class"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
               </Subbinding>
               <Subbinding sourcePath="${cargos}">
                 <BindingParameter name="NAME" value="Cargos"/>
                 <BindingParameter name="javax.swing.binding.ParameterKeys.COLUMN_CLASS" value="java.math.BigDecimal.class"/>
+                <BindingParameter name="javax.swing.binding.ParameterKeys.EDITABLE" value="false"/>
               </Subbinding>
               <Subbinding sourcePath="${activo}">
                 <BindingParameter name="NAME" value="Activo"/>
@@ -207,41 +215,41 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="24" style="2"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Diarios"/>
+        <Property name="text" type="java.lang.String" value="DIARIOS"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="frmEmpresas_txtCodEmpresa">
+    <Component class="javax.swing.JTextField" name="txtnombDiario">
       <BindingProperties>
-        <BindingProperty name="text" source="tblDiarios" sourcePath="${selectedElement.nombDiario}" target="frmEmpresas_txtCodEmpresa" targetPath="text" updateStrategy="0" immediately="false">
+        <BindingProperty name="text" source="tblDiarios" sourcePath="${selectedElement.nombDiario}" target="txtnombDiario" targetPath="text" updateStrategy="0" immediately="false">
           <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
         </BindingProperty>
       </BindingProperties>
     </Component>
-    <Component class="javax.swing.JLabel" name="txtnombDiario">
+    <Component class="javax.swing.JLabel" name="lblNomDiario">
       <Properties>
         <Property name="text" type="java.lang.String" value="Nombre Diario"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="frmEmpresas_txtCodEmpresa1">
+    <Component class="javax.swing.JTextField" name="txtA&#xf1;o">
       <BindingProperties>
-        <BindingProperty name="text" source="tblDiarios" sourcePath="${selectedElement.a&#xf1;o}" target="frmEmpresas_txtCodEmpresa1" targetPath="text" updateStrategy="0" immediately="false">
+        <BindingProperty name="text" source="tblDiarios" sourcePath="${selectedElement.a&#xf1;o}" target="txtA&#xf1;o" targetPath="text" updateStrategy="0" immediately="false">
           <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
         </BindingProperty>
       </BindingProperties>
     </Component>
-    <Component class="javax.swing.JLabel" name="txtA&#xf1;o">
+    <Component class="javax.swing.JLabel" name="lbla&#xf1;o">
       <Properties>
         <Property name="text" type="java.lang.String" value="A&#xf1;o"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JTextField" name="frmEmpresas_txtCodEmpresa2">
+    <Component class="javax.swing.JTextField" name="txtMes">
       <BindingProperties>
-        <BindingProperty name="text" source="tblDiarios" sourcePath="${selectedElement.mes}" target="frmEmpresas_txtCodEmpresa2" targetPath="text" updateStrategy="0" immediately="false">
+        <BindingProperty name="text" source="tblDiarios" sourcePath="${selectedElement.mes}" target="txtMes" targetPath="text" updateStrategy="0" immediately="false">
           <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
         </BindingProperty>
       </BindingProperties>
     </Component>
-    <Component class="javax.swing.JLabel" name="txtMes">
+    <Component class="javax.swing.JLabel" name="l&#xf1;blmes">
       <Properties>
         <Property name="text" type="java.lang.String" value="Mes"/>
       </Properties>
@@ -260,6 +268,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="LIMPIAR"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnLimpiarActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btnSeleccionDiario">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="SELECCIONAR DIARIO"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnSeleccionDiarioActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

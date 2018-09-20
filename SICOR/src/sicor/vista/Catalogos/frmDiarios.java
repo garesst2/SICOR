@@ -13,6 +13,7 @@ import javax.swing.JOptionPane;
 import sicor.controlador.DiarioJpaController;
 import sicor.controlador.EmpresasJpaController;
 import sicor.modelo.Diario;
+import sicor.vista.Menu.Inicio;
 import static sicor.vista.Menu.Inicio.empresaGlobal;
 
 /**
@@ -25,12 +26,15 @@ public class frmDiarios extends javax.swing.JDialog {
      * Creates new form frmDiarios
      */
     private EntityManagerFactory emf = Persistence.createEntityManagerFactory("SICORPU");
+    private EntityManagerFactory emf2 = Persistence.createEntityManagerFactory("SICORPU");
     public List<Diario> listDiarios = mostrarDiarioPorEmpresas();
     public static Diario diario;
 
     public frmDiarios(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(null);
+        txtIdDiario.setVisible(false);
     }
 
     private List<Diario> mostrarDiarioPorEmpresas() {
@@ -65,15 +69,16 @@ public class frmDiarios extends javax.swing.JDialog {
         tblDiarios = new javax.swing.JTable();
         txtIdDiario = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        frmEmpresas_txtCodEmpresa = new javax.swing.JTextField();
-        txtnombDiario = new javax.swing.JLabel();
-        frmEmpresas_txtCodEmpresa1 = new javax.swing.JTextField();
-        txtAño = new javax.swing.JLabel();
-        frmEmpresas_txtCodEmpresa2 = new javax.swing.JTextField();
-        txtMes = new javax.swing.JLabel();
+        txtnombDiario = new javax.swing.JTextField();
+        lblNomDiario = new javax.swing.JLabel();
+        txtAño = new javax.swing.JTextField();
+        lblaño = new javax.swing.JLabel();
+        txtMes = new javax.swing.JTextField();
+        lñblmes = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         btnCrear = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
+        btnSeleccionDiario = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -85,18 +90,23 @@ public class frmDiarios extends javax.swing.JDialog {
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${nombDiario}"));
         columnBinding.setColumnName("Nomb Diario");
         columnBinding.setColumnClass(String.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${año}"));
         columnBinding.setColumnName("Año");
         columnBinding.setColumnClass(Integer.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${mes}"));
         columnBinding.setColumnName("Mes");
         columnBinding.setColumnClass(Integer.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${abonos}"));
         columnBinding.setColumnName("Abonos");
         columnBinding.setColumnClass(java.math.BigDecimal.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${cargos}"));
         columnBinding.setColumnName("Cargos");
         columnBinding.setColumnClass(java.math.BigDecimal.class);
+        columnBinding.setEditable(false);
         columnBinding = jTableBinding.addColumnBinding(org.jdesktop.beansbinding.ELProperty.create("${activo}"));
         columnBinding.setColumnName("Activo");
         columnBinding.setColumnClass(Boolean.class);
@@ -110,25 +120,28 @@ public class frmDiarios extends javax.swing.JDialog {
             tblDiarios.getColumnModel().getColumn(0).setMinWidth(0);
             tblDiarios.getColumnModel().getColumn(0).setPreferredWidth(0);
             tblDiarios.getColumnModel().getColumn(0).setMaxWidth(0);
+            tblDiarios.getColumnModel().getColumn(6).setMinWidth(0);
+            tblDiarios.getColumnModel().getColumn(6).setPreferredWidth(0);
+            tblDiarios.getColumnModel().getColumn(6).setMaxWidth(0);
         }
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
-        jLabel5.setText("Diarios");
+        jLabel5.setText("DIARIOS");
 
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tblDiarios, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.nombDiario}"), frmEmpresas_txtCodEmpresa, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tblDiarios, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.nombDiario}"), txtnombDiario, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
-        txtnombDiario.setText("Nombre Diario");
+        lblNomDiario.setText("Nombre Diario");
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tblDiarios, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.año}"), frmEmpresas_txtCodEmpresa1, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tblDiarios, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.año}"), txtAño, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
-        txtAño.setText("Año");
+        lblaño.setText("Año");
 
-        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tblDiarios, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.mes}"), frmEmpresas_txtCodEmpresa2, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tblDiarios, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.mes}"), txtMes, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
-        txtMes.setText("Mes");
+        lñblmes.setText("Mes");
 
         btnCrear.setText("CREAR");
         btnCrear.addActionListener(new java.awt.event.ActionListener() {
@@ -138,6 +151,18 @@ public class frmDiarios extends javax.swing.JDialog {
         });
 
         btnLimpiar.setText("LIMPIAR");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
+
+        btnSeleccionDiario.setText("SELECCIONAR DIARIO");
+        btnSeleccionDiario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSeleccionDiarioActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -147,14 +172,14 @@ public class frmDiarios extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtnombDiario)
-                            .addComponent(txtAño)
-                            .addComponent(txtMes))
+                            .addComponent(lblNomDiario)
+                            .addComponent(lblaño)
+                            .addComponent(lñblmes))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(frmEmpresas_txtCodEmpresa2)
-                            .addComponent(frmEmpresas_txtCodEmpresa1)
-                            .addComponent(frmEmpresas_txtCodEmpresa)))
+                            .addComponent(txtMes)
+                            .addComponent(txtAño)
+                            .addComponent(txtnombDiario)))
                     .addComponent(jSeparator1)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
@@ -167,7 +192,8 @@ public class frmDiarios extends javax.swing.JDialog {
                                 .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(txtIdDiario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(73, 73, 73)))))
+                                .addGap(73, 73, 73))
+                            .addComponent(btnSeleccionDiario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -184,22 +210,24 @@ public class frmDiarios extends javax.swing.JDialog {
                             .addComponent(txtIdDiario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtnombDiario)
-                            .addComponent(frmEmpresas_txtCodEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblNomDiario)
+                            .addComponent(txtnombDiario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtAño)
-                            .addComponent(frmEmpresas_txtCodEmpresa1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lblaño)
+                            .addComponent(txtAño, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(txtMes)
-                            .addComponent(frmEmpresas_txtCodEmpresa2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(lñblmes)
+                            .addComponent(txtMes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnCrear)
                             .addComponent(btnLimpiar))
+                        .addGap(18, 18, 18)
+                        .addComponent(btnSeleccionDiario)
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -214,17 +242,30 @@ public class frmDiarios extends javax.swing.JDialog {
             try {
                 cargarDatos();
                 DiarioJpaController ctrDiario = new DiarioJpaController(emf);
-                EmpresasJpaController ctrEmpresa = new EmpresasJpaController(emf);
+                EmpresasJpaController ctrEmpresa = new EmpresasJpaController(emf2);
+                diario.setIdEmpresa(ctrEmpresa.findEmpresas(empresaGlobal.getIdEmpresa()));
                 ctrDiario.create(diario);
                 limpiar();
+                listDiarios = mostrarDiarioPorEmpresas();
                 actualizarTabla();
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, "Ocurrio un error: " + e.toString());
             }
         } else {
-            JOptionPane.showConfirmDialog(null, "Hay datos que no se han completados");
+            JOptionPane.showMessageDialog(null, "Hay datos que no se han completados ");
         }
     }//GEN-LAST:event_btnCrearActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        limpiar();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnSeleccionDiarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionDiarioActionPerformed
+        Inicio.diarioGlobal = diario;
+        JOptionPane.showMessageDialog(null, "El diario ha sido correctamente seleccionado para poder trabajar");
+        Inicio.estadoDiarioSeleccion=true;
+        this.dispose();
+    }//GEN-LAST:event_btnSeleccionDiarioActionPerformed
 
     private boolean validarDatos() {
         return (txtAño.getText().length() == 0) ? !(txtMes.getText().length() == 0) : (txtMes.getText().length() != 0);
@@ -347,17 +388,18 @@ public class frmDiarios extends javax.swing.JDialog {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCrear;
     private javax.swing.JButton btnLimpiar;
-    private javax.swing.JTextField frmEmpresas_txtCodEmpresa;
-    private javax.swing.JTextField frmEmpresas_txtCodEmpresa1;
-    private javax.swing.JTextField frmEmpresas_txtCodEmpresa2;
+    private javax.swing.JButton btnSeleccionDiario;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JLabel lblNomDiario;
+    private javax.swing.JLabel lblaño;
+    private javax.swing.JLabel lñblmes;
     private javax.swing.JTable tblDiarios;
-    private javax.swing.JLabel txtAño;
+    private javax.swing.JTextField txtAño;
     private javax.swing.JTextField txtIdDiario;
-    private javax.swing.JLabel txtMes;
-    private javax.swing.JLabel txtnombDiario;
+    private javax.swing.JTextField txtMes;
+    private javax.swing.JTextField txtnombDiario;
     private org.jdesktop.beansbinding.BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
 }

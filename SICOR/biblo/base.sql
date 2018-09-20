@@ -88,7 +88,7 @@ DROP TABLE IF EXISTS `cuentas`;
 CREATE TABLE IF NOT EXISTS `cuentas` (
   `idCuenta` int(11) NOT NULL AUTO_INCREMENT,
   `codCuenta` varchar(150) COLLATE utf8_spanish2_ci DEFAULT NULL,
-  `nombCuenta` int(11) DEFAULT NULL,
+  `nombCuenta` varchar(250) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `cargoDirecto` tinyint(1) DEFAULT NULL,
   `idEmpresa` int(11) DEFAULT NULL,
   `idTipoCuenta` int(11) unsigned zerofill DEFAULT NULL,
@@ -100,10 +100,17 @@ CREATE TABLE IF NOT EXISTS `cuentas` (
   KEY `FK_id_Cuenta_Padre1` (`idCuentaPadre`),
   CONSTRAINT `FK_empresa_asociada` FOREIGN KEY (`idEmpresa`) REFERENCES `empresas` (`idEmpresa`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_id_Cuenta_Padre1` FOREIGN KEY (`idCuentaPadre`) REFERENCES `cuentas` (`idCuenta`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
 -- Volcando datos para la tabla sicor.cuentas: ~0 rows (aproximadamente)
 /*!40000 ALTER TABLE `cuentas` DISABLE KEYS */;
+REPLACE INTO `cuentas` (`idCuenta`, `codCuenta`, `nombCuenta`, `cargoDirecto`, `idEmpresa`, `idTipoCuenta`, `cargo`, `abono`, `idCuentaPadre`) VALUES
+	(1, '1', 'sdsds', 0, 1, NULL, 0.00, 0.00, NULL),
+	(2, '2', 'asxcxz', 0, 1, NULL, 0.00, 0.00, NULL),
+	(3, '3', 'dsaasda', 0, 1, NULL, 0.00, 0.00, NULL),
+	(4, '4', 'ddfdf', 0, 1, NULL, 0.00, 0.00, NULL),
+	(5, '11', 'cxcc', 0, 1, NULL, 0.00, 0.00, 1),
+	(6, '1101', 'cbvcvlllll', 1, 1, NULL, 0.00, 0.00, 5);
 /*!40000 ALTER TABLE `cuentas` ENABLE KEYS */;
 
 -- Volcando estructura para tabla sicor.detallepartida
@@ -132,6 +139,7 @@ DROP TABLE IF EXISTS `diario`;
 CREATE TABLE IF NOT EXISTS `diario` (
   `idDiario` int(11) NOT NULL AUTO_INCREMENT,
   `idEmpresa` int(11) DEFAULT NULL,
+  `nombDiario` varchar(250) COLLATE utf8_spanish2_ci DEFAULT NULL,
   `año` int(2) DEFAULT NULL,
   `mes` int(2) DEFAULT NULL,
   `cargos` decimal(6,2) DEFAULT NULL,
@@ -141,10 +149,16 @@ CREATE TABLE IF NOT EXISTS `diario` (
   PRIMARY KEY (`idDiario`),
   KEY `FK_Empresa_Asociacion` (`idEmpresa`),
   CONSTRAINT `FK_Empresa_Asociacion` FOREIGN KEY (`idEmpresa`) REFERENCES `empresas` (`idEmpresa`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
--- Volcando datos para la tabla sicor.diario: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla sicor.diario: ~5 rows (aproximadamente)
 /*!40000 ALTER TABLE `diario` DISABLE KEYS */;
+REPLACE INTO `diario` (`idDiario`, `idEmpresa`, `nombDiario`, `año`, `mes`, `cargos`, `abonos`, `movimientos`, `activo`) VALUES
+	(1, NULL, 'Prueba Diario Uno', 2018, 9, 0.00, 0.00, 0, 1),
+	(2, NULL, 'diario uno', 2018, 9, 0.00, 0.00, 0, 1),
+	(3, 1, 'fvvfd', 2018, 9, 0.00, 0.00, 0, 1),
+	(4, 1, 'cvcvcvc', 2018, 10, 0.00, 0.00, 0, 1),
+	(5, 1, 'fgfgf', 2018, 7, 0.00, 0.00, 0, 1);
 /*!40000 ALTER TABLE `diario` ENABLE KEYS */;
 
 -- Volcando estructura para tabla sicor.empresas
@@ -158,10 +172,17 @@ CREATE TABLE IF NOT EXISTS `empresas` (
   `conciliacion` tinyint(1) DEFAULT NULL,
   `recuDatos` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`idEmpresa`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish2_ci;
 
--- Volcando datos para la tabla sicor.empresas: ~0 rows (aproximadamente)
+-- Volcando datos para la tabla sicor.empresas: ~7 rows (aproximadamente)
 /*!40000 ALTER TABLE `empresas` DISABLE KEYS */;
+REPLACE INTO `empresas` (`idEmpresa`, `codEmpresa`, `razonSocial`, `repre`, `tel`, `conciliacion`, `recuDatos`) VALUES
+	(1, '01', 'prueba', 'oscar', '4334', NULL, NULL),
+	(5, '02', 'Prueba 2', 'abraham', '434343', NULL, NULL),
+	(6, '03', 'Prueba 3', 'daniel', '343434', NULL, NULL),
+	(7, '04', 'niki', 'nini', '979879', NULL, NULL),
+	(8, '05', 'nninlk', 'ccc', '43343', NULL, NULL),
+	(9, '06', 'ddfdsf', 'dgdg', 'fdsfd', NULL, NULL);
 /*!40000 ALTER TABLE `empresas` ENABLE KEYS */;
 
 -- Volcando estructura para tabla sicor.partidas

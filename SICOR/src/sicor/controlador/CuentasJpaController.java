@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.swing.JOptionPane;
 import sicor.controlador.exceptions.NonexistentEntityException;
 import sicor.modelo.Cheque;
 
@@ -377,6 +378,27 @@ public class CuentasJpaController implements Serializable {
         } finally {
             em.close();
         }
+    }
+    
+    public List<Cuentas> getCuentasByEmpresa(Object empresa){
+        List<Cuentas> valor = null;
+        EntityManager em = getEntityManager();
+        try {
+            valor =em.createQuery("SELECT c FROM Cuentas c WHERE c.idEmpresa = :idEmpresa ORDER BY c.codCuenta",Cuentas.class).setParameter("idEmpresa", empresa).getResultList();
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Ocurrio un error: "+e.toString());
+        }
+        return valor;
+    }
+    
+    public Cuentas getCuentasByCod(Object empresa, Object cod){
+        Cuentas valor = null;
+        EntityManager em = getEntityManager();
+        try {
+            valor =em.createQuery("SELECT c FROM Cuentas c WHERE c.idEmpresa = :idEmpresa AND c.codCuenta=:codCuenta",Cuentas.class).setParameter("idEmpresa", empresa).setParameter("codCuenta", cod).getSingleResult();
+        } catch (Exception e) {
+        }
+        return valor;
     }
 
     public int getCuentasCount() {

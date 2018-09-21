@@ -66,7 +66,7 @@ public class Inicio extends javax.swing.JFrame {
 
         btnEmpresas = new javax.swing.JButton();
         btnDiarios = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        btnPartidas = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -85,10 +85,10 @@ public class Inicio extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("PARTIDAS");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnPartidas.setText("PARTIDAS");
+        btnPartidas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnPartidasActionPerformed(evt);
             }
         });
 
@@ -108,7 +108,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnEmpresas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnDiarios, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPartidas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(331, Short.MAX_VALUE))
         );
@@ -120,7 +120,7 @@ public class Inicio extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnDiarios)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btnPartidas)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
                 .addContainerGap(132, Short.MAX_VALUE))
@@ -137,14 +137,13 @@ public class Inicio extends javax.swing.JFrame {
         new frmDiarios(this, true).setVisible(true);
     }//GEN-LAST:event_btnDiariosActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        EmpresasJpaController ctr = new EmpresasJpaController(emf);
-        try {
-            Empresas nj = ctr.findEmpresas(Integer.parseInt("I"));
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Ocurrio un error: "+e.toString());
+    private void btnPartidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPartidasActionPerformed
+        if (estadoDiarioSeleccion) {
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "No se ha seleccionado ningun diario donde trabajar;");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnPartidasActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         new frmCuentas(this, true).setVisible(true);
@@ -188,7 +187,7 @@ public class Inicio extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDiarios;
     private javax.swing.JButton btnEmpresas;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnPartidas;
     private javax.swing.JButton jButton2;
     // End of variables declaration//GEN-END:variables
 }

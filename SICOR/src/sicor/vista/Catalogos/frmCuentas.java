@@ -195,63 +195,63 @@ public class frmCuentas extends javax.swing.JDialog {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         try {
             cuenta = new Cuentas();
-        cuenta.setNombCuenta(txtNombCuenta.getText());
-        cuenta.setCargoDirecto(txtAbono.isSelected());
-        cuenta.setAbono(new BigDecimal("0.00"));
-        cuenta.setCargo(new BigDecimal("0.00"));
-        cuenta.setIdEmpresa(new EmpresasJpaController(emf2).findEmpresas(Inicio.empresaGlobal.getIdEmpresa()));
-        cuenta.setCodCuenta(txtCodCuenta.getText());
-        switch (cuenta.getCodCuenta().length()) {
-            case 1:
-                cuenta.setIdCuentaPadre(null);
-                guardarDatos();
-                break;
-            case 2:
-                if (new CuentasJpaController(emf).getCuentasByCod(new EmpresasJpaController(emf2).findEmpresas(Inicio.empresaGlobal.getIdEmpresa()), cuenta.getCodCuenta().substring(0, 1)) != null) {
-                    cuenta.setIdCuentaPadre(new CuentasJpaController(emf).getCuentasByCod(new EmpresasJpaController(emf2).findEmpresas(Inicio.empresaGlobal.getIdEmpresa()), cuenta.getCodCuenta().substring(0, 1)));
+            cuenta.setNombCuenta(txtNombCuenta.getText());
+            cuenta.setCargoDirecto(txtAbono.isSelected());
+            cuenta.setAbono(new BigDecimal("0.00"));
+            cuenta.setCargo(new BigDecimal("0.00"));
+            cuenta.setIdEmpresa(new EmpresasJpaController(emf2).findEmpresas(Inicio.empresaGlobal.getIdEmpresa()));
+            cuenta.setCodCuenta(txtCodCuenta.getText());
+            switch (cuenta.getCodCuenta().length()) {
+                case 1:
+                    cuenta.setIdCuentaPadre(null);
                     guardarDatos();
-                } else {
-                    JOptionPane.showMessageDialog(null, "No existe una cuenta padre, para el código ingresado ");
-                }
-                break;
-            case 4:
-                if (new CuentasJpaController(emf).getCuentasByCod(new EmpresasJpaController(emf2).findEmpresas(Inicio.empresaGlobal.getIdEmpresa()), cuenta.getCodCuenta().substring(0, 2)) != null) {
-                    cuenta.setIdCuentaPadre(new CuentasJpaController(emf).getCuentasByCod(new EmpresasJpaController(emf2).findEmpresas(Inicio.empresaGlobal.getIdEmpresa()), cuenta.getCodCuenta().substring(0, 2)));
-                    guardarDatos();
-                } else {
-                    JOptionPane.showMessageDialog(null, "No existe una cuenta padre, para el código ingresado");
-                }
-                break;
-            case 6:
-                if (new CuentasJpaController(emf).getCuentasByCod(new EmpresasJpaController(emf2).findEmpresas(Inicio.empresaGlobal.getIdEmpresa()), cuenta.getCodCuenta().substring(0, 4)) != null) {
-                    cuenta.setIdCuentaPadre(new CuentasJpaController(emf).getCuentasByCod(new EmpresasJpaController(emf2).findEmpresas(Inicio.empresaGlobal.getIdEmpresa()), cuenta.getCodCuenta().substring(0, 4)));
-                    guardarDatos();
-                } else {
-                    JOptionPane.showMessageDialog(null, "No existe una cuenta padre, para el código ingresado");
-                }
-                break;
-            case 8:
-                if (new CuentasJpaController(emf).getCuentasByCod(new EmpresasJpaController(emf2).findEmpresas(Inicio.empresaGlobal.getIdEmpresa()), cuenta.getCodCuenta().substring(0, 6)) != null) {
-                    cuenta.setIdCuentaPadre(new CuentasJpaController(emf).getCuentasByCod(new EmpresasJpaController(emf2).findEmpresas(Inicio.empresaGlobal.getIdEmpresa()), cuenta.getCodCuenta().substring(0, 6)));
-                    guardarDatos();
-                } else {
-                    JOptionPane.showMessageDialog(null, "No existe una cuenta padre, para el código ingresado");
-                }
-                break;
-            case 10:
-                if (new CuentasJpaController(emf).getCuentasByCod(new EmpresasJpaController(emf2).findEmpresas(Inicio.empresaGlobal.getIdEmpresa()), cuenta.getCodCuenta().substring(0, 8)) != null) {
-                    cuenta.setIdCuentaPadre(new CuentasJpaController(emf).getCuentasByCod(new EmpresasJpaController(emf2).findEmpresas(Inicio.empresaGlobal.getIdEmpresa()), cuenta.getCodCuenta().substring(0, 8)));
-                    guardarDatos();
-                } else {
-                    JOptionPane.showMessageDialog(null, "No existe una cuenta padre, para el código ingresado");
-                }
-                break;
-            default:
-                JOptionPane.showMessageDialog(null, "El sistema ha detectado que el formato del código de cuenta es incorrecto y/o incoherente.");
-                break;
-        }
+                    break;
+                case 2:
+                    if (new CuentasJpaController(emf).getCuentasByCod(new EmpresasJpaController(emf2).findEmpresas(Inicio.empresaGlobal.getIdEmpresa()), cuenta.getCodCuenta().substring(0, 1)) != null) {
+                        cuenta.setIdCuentaPadre(new CuentasJpaController(emf).getCuentasByCod(new EmpresasJpaController(emf2).findEmpresas(Inicio.empresaGlobal.getIdEmpresa()), cuenta.getCodCuenta().substring(0, 1)));
+                        guardarDatos();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No existe una cuenta padre, para el código ingresado ");
+                    }
+                    break;
+                case 4:
+                    if (new CuentasJpaController(emf).getCuentasByCod(new EmpresasJpaController(emf2).findEmpresas(Inicio.empresaGlobal.getIdEmpresa()), cuenta.getCodCuenta().substring(0, 2)) != null) {
+                        cuenta.setIdCuentaPadre(new CuentasJpaController(emf).getCuentasByCod(new EmpresasJpaController(emf2).findEmpresas(Inicio.empresaGlobal.getIdEmpresa()), cuenta.getCodCuenta().substring(0, 2)));
+                        guardarDatos();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No existe una cuenta padre, para el código ingresado");
+                    }
+                    break;
+                case 6:
+                    if (new CuentasJpaController(emf).getCuentasByCod(new EmpresasJpaController(emf2).findEmpresas(Inicio.empresaGlobal.getIdEmpresa()), cuenta.getCodCuenta().substring(0, 4)) != null) {
+                        cuenta.setIdCuentaPadre(new CuentasJpaController(emf).getCuentasByCod(new EmpresasJpaController(emf2).findEmpresas(Inicio.empresaGlobal.getIdEmpresa()), cuenta.getCodCuenta().substring(0, 4)));
+                        guardarDatos();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No existe una cuenta padre, para el código ingresado");
+                    }
+                    break;
+                case 8:
+                    if (new CuentasJpaController(emf).getCuentasByCod(new EmpresasJpaController(emf2).findEmpresas(Inicio.empresaGlobal.getIdEmpresa()), cuenta.getCodCuenta().substring(0, 6)) != null) {
+                        cuenta.setIdCuentaPadre(new CuentasJpaController(emf).getCuentasByCod(new EmpresasJpaController(emf2).findEmpresas(Inicio.empresaGlobal.getIdEmpresa()), cuenta.getCodCuenta().substring(0, 6)));
+                        guardarDatos();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No existe una cuenta padre, para el código ingresado");
+                    }
+                    break;
+                case 10:
+                    if (new CuentasJpaController(emf).getCuentasByCod(new EmpresasJpaController(emf2).findEmpresas(Inicio.empresaGlobal.getIdEmpresa()), cuenta.getCodCuenta().substring(0, 8)) != null) {
+                        cuenta.setIdCuentaPadre(new CuentasJpaController(emf).getCuentasByCod(new EmpresasJpaController(emf2).findEmpresas(Inicio.empresaGlobal.getIdEmpresa()), cuenta.getCodCuenta().substring(0, 8)));
+                        guardarDatos();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No existe una cuenta padre, para el código ingresado");
+                    }
+                    break;
+                default:
+                    JOptionPane.showMessageDialog(null, "El sistema ha detectado que el formato del código de cuenta es incorrecto y/o incoherente.");
+                    break;
+            }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Ocurrio un error: "+e.toString());
+            JOptionPane.showMessageDialog(null, "Ocurrio un error: " + e.toString());
         }
     }//GEN-LAST:event_btnAgregarActionPerformed
 

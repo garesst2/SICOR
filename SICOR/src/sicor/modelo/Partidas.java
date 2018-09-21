@@ -52,6 +52,8 @@ public class Partidas implements Serializable {
     @Column(nullable = false)
     private Integer idPartida;
     private Integer numPartida;
+    private Integer mes;
+    private Integer año;
     @Temporal(TemporalType.DATE)
     private Date fechPartida;
     @Column(length = 250)
@@ -94,6 +96,22 @@ public class Partidas implements Serializable {
 
     public void setNumPartida(Integer numPartida) {
         this.numPartida = numPartida;
+    }
+
+    public Integer getMes() {
+        return mes;
+    }
+
+    public void setMes(Integer mes) {
+        this.mes = mes;
+    }
+
+    public Integer getAño() {
+        return año;
+    }
+
+    public void setAño(Integer año) {
+        this.año = año;
     }
 
     public Date getFechPartida() {

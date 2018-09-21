@@ -115,6 +115,11 @@ public class frmDiarios extends javax.swing.JDialog {
         columnBinding.setColumnClass(Integer.class);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
+        tblDiarios.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblDiariosMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblDiarios);
         if (tblDiarios.getColumnModel().getColumnCount() > 0) {
             tblDiarios.getColumnModel().getColumn(0).setMinWidth(0);
@@ -125,10 +130,13 @@ public class frmDiarios extends javax.swing.JDialog {
             tblDiarios.getColumnModel().getColumn(6).setMaxWidth(0);
         }
 
+        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tblDiarios, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.idDiario}"), txtIdDiario, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        bindingGroup.addBinding(binding);
+
         jLabel5.setFont(new java.awt.Font("Segoe UI", 2, 24)); // NOI18N
         jLabel5.setText("DIARIOS");
 
-        org.jdesktop.beansbinding.Binding binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tblDiarios, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.nombDiario}"), txtnombDiario, org.jdesktop.beansbinding.BeanProperty.create("text"));
+        binding = org.jdesktop.beansbinding.Bindings.createAutoBinding(org.jdesktop.beansbinding.AutoBinding.UpdateStrategy.READ_WRITE, tblDiarios, org.jdesktop.beansbinding.ELProperty.create("${selectedElement.nombDiario}"), txtnombDiario, org.jdesktop.beansbinding.BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
         lblNomDiario.setText("Nombre Diario");
@@ -261,11 +269,20 @@ public class frmDiarios extends javax.swing.JDialog {
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnSeleccionDiarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSeleccionDiarioActionPerformed
-        Inicio.diarioGlobal = diario;
-        JOptionPane.showMessageDialog(null, "El diario ha sido correctamente seleccionado para poder trabajar");
-        Inicio.estadoDiarioSeleccion=true;
-        this.dispose();
+        if (tblDiarios.getSelectedRowCount() == 1) {
+            DiarioJpaController ctrDiario = new DiarioJpaController(emf);
+            Inicio.diarioGlobal = ctrDiario.findDiario(Integer.parseInt(txtIdDiario.getText()));
+            JOptionPane.showMessageDialog(null, "El diario ha sido correctamente seleccionado para poder trabajar");
+            Inicio.estadoDiarioSeleccion = true;
+            this.dispose();
+        } else {
+            JOptionPane.showMessageDialog(null, "Debe de escoger un diario para poder trabajar ");
+        }
     }//GEN-LAST:event_btnSeleccionDiarioActionPerformed
+
+    private void tblDiariosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblDiariosMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblDiariosMouseClicked
 
     private boolean validarDatos() {
         return (txtAño.getText().length() == 0) ? !(txtMes.getText().length() == 0) : (txtMes.getText().length() != 0);

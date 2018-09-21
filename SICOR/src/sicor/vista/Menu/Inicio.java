@@ -19,6 +19,7 @@ import sicor.modelo.Usuarios;
 import sicor.vista.Catalogos.frmCuentas;
 import sicor.vista.Catalogos.frmDiarios;
 import sicor.vista.Catalogos.frmEmpresas;
+import sicor.vista.Catalogos.frmPartidas;
 import sicor.vista.Login.Login;
 
 /**
@@ -139,7 +140,7 @@ public class Inicio extends javax.swing.JFrame {
 
     private void btnPartidasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPartidasActionPerformed
         if (estadoDiarioSeleccion) {
-            
+            new frmPartidas(this, true).setVisible(true);
         }else{
             JOptionPane.showMessageDialog(null, "No se ha seleccionado ningun diario donde trabajar;");
         }

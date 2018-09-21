@@ -205,10 +205,18 @@
               </Subbinding>
             </BindingProperty>
           </BindingProperties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblDiariosMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
     <Component class="javax.swing.JTextField" name="txtIdDiario">
+      <BindingProperties>
+        <BindingProperty name="text" source="tblDiarios" sourcePath="${selectedElement.idDiario}" target="txtIdDiario" targetPath="text" updateStrategy="0" immediately="false">
+          <BindingParameter name="javax.swing.binding.ParameterKeys.TEXT_CHANGE_STRATEGY" value="javax.swing.binding.TextChangeStrategy.ON_TYPE"/>
+        </BindingProperty>
+      </BindingProperties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel5">
       <Properties>

@@ -99,7 +99,7 @@ public class Tipopartida implements Serializable {
 
     @Override
     public String toString() {
-        return "sicor.modelo.Tipopartida[ idTipoPartida=" + idTipoPartida + " ]";
+        return nombTipoPartida;
     }
     
 }

@@ -129,11 +129,11 @@ public class PartidasdiariosJpaController implements Serializable {
         }
     }
     
-    public List<Partidasdiarios> getDiarioPartidaByEmpresa(Object empresa, Object año, Object mes){
+    public List<Partidasdiarios> getDiarioPartidaByEmpresa(Object diario, Object año, Object mes){
         List<Partidasdiarios> valor = null;
         EntityManager em = getEntityManager();
         try {
-            valor =em.createQuery("SELECT p FROM Partidasdiarios p WHERE p.idDiario = :idDiario AND p.mes = :mes p.a\u00f1o = :a\u00f1o ",Partidasdiarios.class).setParameter("idEmpresa", empresa).setParameter("a\u00f1o", año).setParameter("mes", mes).getResultList();
+            valor =em.createQuery("SELECT p FROM Partidasdiarios p WHERE p.idDiario = :idDiario AND p.mes = :mes AND p.año = :año",Partidasdiarios.class).setParameter("idDiario", diario).setParameter("año", año).setParameter("mes", mes).getResultList();
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Ocurrio un error: "+e.toString());
         }

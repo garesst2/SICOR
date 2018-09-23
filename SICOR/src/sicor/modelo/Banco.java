@@ -10,7 +10,6 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author gares
+ * @author Administrador
  */
 @Entity
 @Table(catalog = "sicor", schema = "")
@@ -50,11 +49,11 @@ public class Banco implements Serializable {
     private String numCuenta;
     @Lob
     private byte[] formatoCheque;
-    @JoinColumn(name = "idEmpresa", referencedColumnName = "idEmpresa", nullable = false)
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Empresas idEmpresa;
-    @OneToMany(mappedBy = "idBanco", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "idBanco")
     private List<Cheque> chequeList;
+    @JoinColumn(name = "idEmpresa", referencedColumnName = "idEmpresa", nullable = false)
+    @ManyToOne(optional = false)
+    private Empresas idEmpresa;
 
     public Banco() {
     }
@@ -95,14 +94,6 @@ public class Banco implements Serializable {
         this.formatoCheque = formatoCheque;
     }
 
-    public Empresas getIdEmpresa() {
-        return idEmpresa;
-    }
-
-    public void setIdEmpresa(Empresas idEmpresa) {
-        this.idEmpresa = idEmpresa;
-    }
-
     @XmlTransient
     public List<Cheque> getChequeList() {
         return chequeList;
@@ -110,6 +101,14 @@ public class Banco implements Serializable {
 
     public void setChequeList(List<Cheque> chequeList) {
         this.chequeList = chequeList;
+    }
+
+    public Empresas getIdEmpresa() {
+        return idEmpresa;
+    }
+
+    public void setIdEmpresa(Empresas idEmpresa) {
+        this.idEmpresa = idEmpresa;
     }
 
     @Override

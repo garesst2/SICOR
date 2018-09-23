@@ -35,6 +35,7 @@ public class frmPartidas extends javax.swing.JDialog {
     public List<Partidasdiarios> listDiarios = mostrarPartidasPorEmpresas();
     public List<Tipopartida> listTipoPartida = mostrarTipoCuenta();
     public static Partidas partida;
+
     public frmPartidas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -42,8 +43,12 @@ public class frmPartidas extends javax.swing.JDialog {
         txtidPartida.setVisible(false);
         txtIdTipoPartida.setVisible(false);
         cambiarEstadoBotones();
+        btnCrear.setEnabled(true);
+        btnModificar.setEnabled(false);
+        btnAgregarDetalle.setEnabled(false);
+        jComboBox1.setSelectedIndex(-1);
     }
-    
+
     private List<Partidasdiarios> mostrarPartidasPorEmpresas() {
         try {
             PartidasdiariosJpaController ctrPD = new PartidasdiariosJpaController(emf);
@@ -53,7 +58,7 @@ public class frmPartidas extends javax.swing.JDialog {
             return null;
         }
     }
-    
+
     private List<Tipopartida> mostrarTipoCuenta() {
         try {
             TipopartidaJpaController ctrPD = new TipopartidaJpaController(emf);
@@ -87,8 +92,8 @@ public class frmPartidas extends javax.swing.JDialog {
     public void setListTipoPartida(List<Tipopartida> listTipoPartida) {
         this.listTipoPartida = listTipoPartida;
     }
-    
-    private void llenarDatos(){
+
+    private void llenarDatos() {
         partida = new Partidas();
         partida.setAbonos(new BigDecimal("0.00"));
         partida.setCargos(new BigDecimal("0.00"));
@@ -99,24 +104,27 @@ public class frmPartidas extends javax.swing.JDialog {
         partida.setAño(Inicio.diarioGlobal.getAño());
         partida.setMes(Inicio.diarioGlobal.getMes());
         partida.setCorrecta(true);
-        partida.setNumPartida(mostrarPartidasPorEmpresas().size()+1);
+        partida.setNumPartida(mostrarPartidasPorEmpresas().size() + 1);
     }
-    private  void limpiarDatos(){
+
+    private void limpiarDatos() {
         tblPartidas.clearSelection();
         txtIdTipoPartida.setText("");
         txtidPartida.setText("");
         txtFecha.setText("");
-        txtConcepto.setText("");        
+        txtConcepto.setText("");
+        btnCrear.setEnabled(true);
+        btnModificar.setEnabled(false);
+        btnAgregarDetalle.setEnabled(false);
+        jComboBox1.setSelectedIndex(-1);
     }
-    private boolean validarCampos(){
-        return (txtFecha.getText().length()>0)?(txtConcepto.getText().length()>0)?(txtIdTipoPartida.getText().length()>0):false:false;
+
+    private boolean validarCampos() {
+        return (txtFecha.getText().length() > 0) ? (txtConcepto.getText().length() > 0) ? (txtIdTipoPartida.getText().length() > 0) : false : false;
     }
-    private boolean estateBotn =false;
-    private void cambiarEstadoBotones(){
-        btnAgregarDetalle.setEnabled(estateBotn);
-        btnModificar.setEnabled(!estateBotn);
-        btnAgregarDetalle.setEnabled(!estateBotn);
-        estateBotn = !estateBotn;
+    private boolean estateBotn = false;
+
+    private void cambiarEstadoBotones() {
     }
 
     /**
@@ -176,6 +184,11 @@ public class frmPartidas extends javax.swing.JDialog {
         columnBinding.setEditable(false);
         bindingGroup.addBinding(jTableBinding);
         jTableBinding.bind();
+        tblPartidas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblPartidasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblPartidas);
         if (tblPartidas.getColumnModel().getColumnCount() > 0) {
             tblPartidas.getColumnModel().getColumn(0).setMinWidth(0);
@@ -191,8 +204,7 @@ public class frmPartidas extends javax.swing.JDialog {
 
         jLabel1.setText("Fecha");
 
-        txtFecha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.MEDIUM))));
-        txtFecha.setText("00/00/0000");
+        txtFecha.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("d/MM/yyyy"))));
 
         jLabel2.setText("Concepto");
 
@@ -216,6 +228,11 @@ public class frmPartidas extends javax.swing.JDialog {
         });
 
         btnLimpiar.setText("LIMPIAR");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
 
         btnAgregarDetalle.setText("AGREGAR DETALLE");
 
@@ -283,9 +300,9 @@ public class frmPartidas extends javax.swing.JDialog {
                                 .addComponent(txtidPartida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(txtIdTipoPartida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel1)
-                            .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel2)
@@ -316,21 +333,35 @@ public class frmPartidas extends javax.swing.JDialog {
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         try {
             PartidasJpaController ctrPartidas = new PartidasJpaController(emf);
-            if(validarCampos()){
+            if (validarCampos()) {
                 llenarDatos();
                 ctrPartidas.create(partida);
                 limpiarDatos();
                 actualizarTabla();
                 JOptionPane.showMessageDialog(null, "Se ha creado con exito");
-            }else{
+            } else {
                 JOptionPane.showMessageDialog(null, "Complete todos los campos");
             }
         } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Ocurrio un error: "+e.toString());
+            JOptionPane.showMessageDialog(null, "Ocurrio un error: " + e.toString());
         }
     }//GEN-LAST:event_btnCrearActionPerformed
 
-    private void actualizarTabla(){
+    private void tblPartidasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPartidasMouseClicked
+        if (tblPartidas.getSelectedRowCount() == 1) {
+            PartidasJpaController ctrPartidas = new PartidasJpaController(emf);
+            partida = ctrPartidas.findPartidas(Integer.parseInt(txtidPartida.getText()));
+            btnCrear.setEnabled(false);
+            btnModificar.setEnabled(true);
+            btnAgregarDetalle.setEnabled(true);
+        }
+    }//GEN-LAST:event_tblPartidasMouseClicked
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        limpiarDatos();
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void actualizarTabla() {
         listDiarios = mostrarPartidasPorEmpresas();
         bindingGroup = new org.jdesktop.beansbinding.BindingGroup();
 
@@ -368,7 +399,7 @@ public class frmPartidas extends javax.swing.JDialog {
             tblPartidas.getColumnModel().getColumn(0).setMaxWidth(0);
         }
     }
-    
+
     /**
      * @param args the command line arguments
      */

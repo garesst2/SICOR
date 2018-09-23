@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     , @NamedQuery(name = "Partidasdiarios.findByAbonos", query = "SELECT p FROM Partidasdiarios p WHERE p.abonos = :abonos")
     , @NamedQuery(name = "Partidasdiarios.findByCorrecta", query = "SELECT p FROM Partidasdiarios p WHERE p.correcta = :correcta")
     , @NamedQuery(name = "Partidasdiarios.findByMes", query = "SELECT p FROM Partidasdiarios p WHERE p.mes = :mes")
-    , @NamedQuery(name = "Partidasdiarios.findByAño", query = "SELECT p FROM Partidasdiarios p WHERE p.año = :año")})
+    , @NamedQuery(name = "Partidasdiarios.findByA\u00f1o", query = "SELECT p FROM Partidasdiarios p WHERE p.a\u00f1o = :a\u00f1o")})
 public class Partidasdiarios implements Serializable {
 
     private static final long serialVersionUID = 1L;

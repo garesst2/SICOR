@@ -12,7 +12,6 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -29,7 +28,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author gares
+ * @author Administrador
  */
 @Entity
 @Table(catalog = "sicor", schema = "")
@@ -42,7 +41,9 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Partidas.findByConcepto", query = "SELECT p FROM Partidas p WHERE p.concepto = :concepto")
     , @NamedQuery(name = "Partidas.findByCargos", query = "SELECT p FROM Partidas p WHERE p.cargos = :cargos")
     , @NamedQuery(name = "Partidas.findByAbonos", query = "SELECT p FROM Partidas p WHERE p.abonos = :abonos")
-    , @NamedQuery(name = "Partidas.findByCorrecta", query = "SELECT p FROM Partidas p WHERE p.correcta = :correcta")})
+    , @NamedQuery(name = "Partidas.findByCorrecta", query = "SELECT p FROM Partidas p WHERE p.correcta = :correcta")
+    , @NamedQuery(name = "Partidas.findByMes", query = "SELECT p FROM Partidas p WHERE p.mes = :mes")
+    , @NamedQuery(name = "Partidas.findByA\u00f1o", query = "SELECT p FROM Partidas p WHERE p.a\u00f1o = :a\u00f1o")})
 public class Partidas implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -52,8 +53,6 @@ public class Partidas implements Serializable {
     @Column(nullable = false)
     private Integer idPartida;
     private Integer numPartida;
-    private Integer mes;
-    private Integer año;
     @Temporal(TemporalType.DATE)
     private Date fechPartida;
     @Column(length = 250)
@@ -64,16 +63,18 @@ public class Partidas implements Serializable {
     @Column(precision = 8, scale = 2)
     private BigDecimal abonos;
     private Boolean correcta;
-    @OneToMany(mappedBy = "idPartida", fetch = FetchType.LAZY)
-    private List<Detallepartida> detallepartidaList;
-    @OneToMany(mappedBy = "idPartida", fetch = FetchType.LAZY)
-    private List<Cheque> chequeList;
+    private Integer mes;
+    private Integer año;
     @JoinColumn(name = "idDiario", referencedColumnName = "idDiario")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Diario idDiario;
     @JoinColumn(name = "idTipoPartida", referencedColumnName = "idTipoPartida")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Tipopartida idTipoPartida;
+    @OneToMany(mappedBy = "idPartida")
+    private List<Cheque> chequeList;
+    @OneToMany(mappedBy = "idPartida")
+    private List<Detallepartida> detallepartidaList;
 
     public Partidas() {
     }
@@ -96,22 +97,6 @@ public class Partidas implements Serializable {
 
     public void setNumPartida(Integer numPartida) {
         this.numPartida = numPartida;
-    }
-
-    public Integer getMes() {
-        return mes;
-    }
-
-    public void setMes(Integer mes) {
-        this.mes = mes;
-    }
-
-    public Integer getAño() {
-        return año;
-    }
-
-    public void setAño(Integer año) {
-        this.año = año;
     }
 
     public Date getFechPartida() {
@@ -154,22 +139,20 @@ public class Partidas implements Serializable {
         this.correcta = correcta;
     }
 
-    @XmlTransient
-    public List<Detallepartida> getDetallepartidaList() {
-        return detallepartidaList;
+    public Integer getMes() {
+        return mes;
     }
 
-    public void setDetallepartidaList(List<Detallepartida> detallepartidaList) {
-        this.detallepartidaList = detallepartidaList;
+    public void setMes(Integer mes) {
+        this.mes = mes;
     }
 
-    @XmlTransient
-    public List<Cheque> getChequeList() {
-        return chequeList;
+    public Integer getAño() {
+        return año;
     }
 
-    public void setChequeList(List<Cheque> chequeList) {
-        this.chequeList = chequeList;
+    public void setAño(Integer año) {
+        this.año = año;
     }
 
     public Diario getIdDiario() {
@@ -186,6 +169,24 @@ public class Partidas implements Serializable {
 
     public void setIdTipoPartida(Tipopartida idTipoPartida) {
         this.idTipoPartida = idTipoPartida;
+    }
+
+    @XmlTransient
+    public List<Cheque> getChequeList() {
+        return chequeList;
+    }
+
+    public void setChequeList(List<Cheque> chequeList) {
+        this.chequeList = chequeList;
+    }
+
+    @XmlTransient
+    public List<Detallepartida> getDetallepartidaList() {
+        return detallepartidaList;
+    }
+
+    public void setDetallepartidaList(List<Detallepartida> detallepartidaList) {
+        this.detallepartidaList = detallepartidaList;
     }
 
     @Override

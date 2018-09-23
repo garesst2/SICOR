@@ -11,7 +11,6 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author gares
+ * @author Administrador
  */
 @Entity
 @Table(catalog = "sicor", schema = "")
@@ -59,19 +58,19 @@ public class Cuentas implements Serializable {
     private BigDecimal cargo;
     @Column(precision = 8, scale = 2)
     private BigDecimal abono;
-    @OneToMany(mappedBy = "idCuenta", fetch = FetchType.LAZY)
-    private List<Detallepartida> detallepartidaList;
-    @OneToMany(mappedBy = "idCuentaAbono", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "idCuentaAbono")
     private List<Cheque> chequeList;
-    @OneToMany(mappedBy = "idCuentaCargo", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "idCuentaCargo")
     private List<Cheque> chequeList1;
+    @OneToMany(mappedBy = "idCuenta")
+    private List<Detallepartida> detallepartidaList;
     @JoinColumn(name = "idEmpresa", referencedColumnName = "idEmpresa")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Empresas idEmpresa;
-    @OneToMany(mappedBy = "idCuentaPadre", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "idCuentaPadre")
     private List<Cuentas> cuentasList;
     @JoinColumn(name = "idCuentaPadre", referencedColumnName = "idCuenta")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Cuentas idCuentaPadre;
 
     public Cuentas() {
@@ -138,15 +137,6 @@ public class Cuentas implements Serializable {
     }
 
     @XmlTransient
-    public List<Detallepartida> getDetallepartidaList() {
-        return detallepartidaList;
-    }
-
-    public void setDetallepartidaList(List<Detallepartida> detallepartidaList) {
-        this.detallepartidaList = detallepartidaList;
-    }
-
-    @XmlTransient
     public List<Cheque> getChequeList() {
         return chequeList;
     }
@@ -162,6 +152,15 @@ public class Cuentas implements Serializable {
 
     public void setChequeList1(List<Cheque> chequeList1) {
         this.chequeList1 = chequeList1;
+    }
+
+    @XmlTransient
+    public List<Detallepartida> getDetallepartidaList() {
+        return detallepartidaList;
+    }
+
+    public void setDetallepartidaList(List<Detallepartida> detallepartidaList) {
+        this.detallepartidaList = detallepartidaList;
     }
 
     public Empresas getIdEmpresa() {

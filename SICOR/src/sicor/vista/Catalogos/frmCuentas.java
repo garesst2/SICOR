@@ -33,6 +33,7 @@ public class frmCuentas extends javax.swing.JDialog {
     public frmCuentas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        this.setLocationRelativeTo(null);
         txtIdCuenta.setVisible(false);
     }
 

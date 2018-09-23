@@ -11,7 +11,6 @@ import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +25,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author gares
+ * @author Administrador
  */
 @Entity
 @Table(catalog = "sicor", schema = "")
@@ -64,22 +63,22 @@ public class Cheque implements Serializable {
     private String conceptoGeneral;
     private Boolean anulado;
     @JoinColumn(name = "idBanco", referencedColumnName = "idBanco")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Banco idBanco;
     @JoinColumn(name = "idCuentaAbono", referencedColumnName = "idCuenta")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Cuentas idCuentaAbono;
     @JoinColumn(name = "idEmpresa", referencedColumnName = "idEmpresa")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Empresas idEmpresa;
     @JoinColumn(name = "idProveedor", referencedColumnName = "idProveedor")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Proveedores idProveedor;
     @JoinColumn(name = "idPartida", referencedColumnName = "idPartida")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Partidas idPartida;
     @JoinColumn(name = "idCuentaCargo", referencedColumnName = "idCuenta")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Cuentas idCuentaCargo;
 
     public Cheque() {

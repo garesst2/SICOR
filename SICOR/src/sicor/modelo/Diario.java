@@ -11,7 +11,6 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author gares
+ * @author Administrador
  */
 @Entity
 @Table(catalog = "sicor", schema = "")
@@ -34,6 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Diario.findAll", query = "SELECT d FROM Diario d")
     , @NamedQuery(name = "Diario.findByIdDiario", query = "SELECT d FROM Diario d WHERE d.idDiario = :idDiario")
+    , @NamedQuery(name = "Diario.findByNombDiario", query = "SELECT d FROM Diario d WHERE d.nombDiario = :nombDiario")
     , @NamedQuery(name = "Diario.findByA\u00f1o", query = "SELECT d FROM Diario d WHERE d.a\u00f1o = :a\u00f1o")
     , @NamedQuery(name = "Diario.findByMes", query = "SELECT d FROM Diario d WHERE d.mes = :mes")
     , @NamedQuery(name = "Diario.findByCargos", query = "SELECT d FROM Diario d WHERE d.cargos = :cargos")
@@ -59,11 +59,11 @@ public class Diario implements Serializable {
     private BigDecimal abonos;
     private Integer movimientos;
     private Boolean activo;
-    @JoinColumn(name = "idEmpresa", referencedColumnName = "idEmpresa")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Empresas idEmpresa;
-    @OneToMany(mappedBy = "idDiario", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "idDiario")
     private List<Partidas> partidasList;
+    @JoinColumn(name = "idEmpresa", referencedColumnName = "idEmpresa")
+    @ManyToOne
+    private Empresas idEmpresa;
 
     public Diario() {
     }
@@ -136,14 +136,6 @@ public class Diario implements Serializable {
         this.activo = activo;
     }
 
-    public Empresas getIdEmpresa() {
-        return idEmpresa;
-    }
-
-    public void setIdEmpresa(Empresas idEmpresa) {
-        this.idEmpresa = idEmpresa;
-    }
-
     @XmlTransient
     public List<Partidas> getPartidasList() {
         return partidasList;
@@ -151,6 +143,14 @@ public class Diario implements Serializable {
 
     public void setPartidasList(List<Partidas> partidasList) {
         this.partidasList = partidasList;
+    }
+
+    public Empresas getIdEmpresa() {
+        return idEmpresa;
+    }
+
+    public void setIdEmpresa(Empresas idEmpresa) {
+        this.idEmpresa = idEmpresa;
     }
 
     @Override

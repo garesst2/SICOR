@@ -10,7 +10,6 @@ import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author gares
+ * @author Administrador
  */
 @Entity
 @Table(catalog = "sicor", schema = "")
@@ -52,10 +51,13 @@ public class Detallepartida implements Serializable {
     private BigDecimal cargo;
     private Boolean correcto;
     @JoinColumn(name = "idPartida", referencedColumnName = "idPartida")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Partidas idPartida;
+    @JoinColumn(name = "idProveedor", referencedColumnName = "idProveedor")
+    @ManyToOne
+    private Proveedores idProveedor;
     @JoinColumn(name = "idCuenta", referencedColumnName = "idCuenta")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private Cuentas idCuenta;
 
     public Detallepartida() {
@@ -111,6 +113,14 @@ public class Detallepartida implements Serializable {
 
     public void setIdPartida(Partidas idPartida) {
         this.idPartida = idPartida;
+    }
+
+    public Proveedores getIdProveedor() {
+        return idProveedor;
+    }
+
+    public void setIdProveedor(Proveedores idProveedor) {
+        this.idProveedor = idProveedor;
     }
 
     public Cuentas getIdCuenta() {

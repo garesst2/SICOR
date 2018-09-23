@@ -10,7 +10,6 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -25,7 +24,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author gares
+ * @author Administrador
  */
 @Entity
 @Table(catalog = "sicor", schema = "")
@@ -56,11 +55,13 @@ public class Proveedores implements Serializable {
     private String direc;
     @Column(length = 250)
     private String doc;
-    @JoinColumn(name = "idEmpresa", referencedColumnName = "idEmpresa")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Empresas idEmpresa;
-    @OneToMany(mappedBy = "idProveedor", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "idProveedor")
     private List<Cheque> chequeList;
+    @OneToMany(mappedBy = "idProveedor")
+    private List<Detallepartida> detallepartidaList;
+    @JoinColumn(name = "idEmpresa", referencedColumnName = "idEmpresa")
+    @ManyToOne
+    private Empresas idEmpresa;
 
     public Proveedores() {
     }
@@ -117,14 +118,6 @@ public class Proveedores implements Serializable {
         this.doc = doc;
     }
 
-    public Empresas getIdEmpresa() {
-        return idEmpresa;
-    }
-
-    public void setIdEmpresa(Empresas idEmpresa) {
-        this.idEmpresa = idEmpresa;
-    }
-
     @XmlTransient
     public List<Cheque> getChequeList() {
         return chequeList;
@@ -132,6 +125,23 @@ public class Proveedores implements Serializable {
 
     public void setChequeList(List<Cheque> chequeList) {
         this.chequeList = chequeList;
+    }
+
+    @XmlTransient
+    public List<Detallepartida> getDetallepartidaList() {
+        return detallepartidaList;
+    }
+
+    public void setDetallepartidaList(List<Detallepartida> detallepartidaList) {
+        this.detallepartidaList = detallepartidaList;
+    }
+
+    public Empresas getIdEmpresa() {
+        return idEmpresa;
+    }
+
+    public void setIdEmpresa(Empresas idEmpresa) {
+        this.idEmpresa = idEmpresa;
     }
 
     @Override

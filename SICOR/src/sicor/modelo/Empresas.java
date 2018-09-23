@@ -11,7 +11,6 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -24,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author gares
+ * @author Administrador
  */
 @Entity
 @Table(catalog = "sicor", schema = "")
@@ -56,16 +55,16 @@ public class Empresas implements Serializable {
     private String tel;
     private Boolean conciliacion;
     private Boolean recuDatos;
-    @OneToMany(mappedBy = "idEmpresa", fetch = FetchType.LAZY)
-    private List<Proveedores> proveedoresList;
-    @OneToMany(mappedBy = "idEmpresa", fetch = FetchType.LAZY)
-    private List<Diario> diarioList;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEmpresa", fetch = FetchType.LAZY)
-    private List<Banco> bancoList;
-    @OneToMany(mappedBy = "idEmpresa", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "idEmpresa")
     private List<Cheque> chequeList;
-    @OneToMany(mappedBy = "idEmpresa", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "idEmpresa")
+    private List<Diario> diarioList;
+    @OneToMany(mappedBy = "idEmpresa")
     private List<Cuentas> cuentasList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idEmpresa")
+    private List<Banco> bancoList;
+    @OneToMany(mappedBy = "idEmpresa")
+    private List<Proveedores> proveedoresList;
 
     public Empresas() {
     }
@@ -131,12 +130,12 @@ public class Empresas implements Serializable {
     }
 
     @XmlTransient
-    public List<Proveedores> getProveedoresList() {
-        return proveedoresList;
+    public List<Cheque> getChequeList() {
+        return chequeList;
     }
 
-    public void setProveedoresList(List<Proveedores> proveedoresList) {
-        this.proveedoresList = proveedoresList;
+    public void setChequeList(List<Cheque> chequeList) {
+        this.chequeList = chequeList;
     }
 
     @XmlTransient
@@ -149,6 +148,15 @@ public class Empresas implements Serializable {
     }
 
     @XmlTransient
+    public List<Cuentas> getCuentasList() {
+        return cuentasList;
+    }
+
+    public void setCuentasList(List<Cuentas> cuentasList) {
+        this.cuentasList = cuentasList;
+    }
+
+    @XmlTransient
     public List<Banco> getBancoList() {
         return bancoList;
     }
@@ -158,21 +166,12 @@ public class Empresas implements Serializable {
     }
 
     @XmlTransient
-    public List<Cheque> getChequeList() {
-        return chequeList;
+    public List<Proveedores> getProveedoresList() {
+        return proveedoresList;
     }
 
-    public void setChequeList(List<Cheque> chequeList) {
-        this.chequeList = chequeList;
-    }
-
-    @XmlTransient
-    public List<Cuentas> getCuentasList() {
-        return cuentasList;
-    }
-
-    public void setCuentasList(List<Cuentas> cuentasList) {
-        this.cuentasList = cuentasList;
+    public void setProveedoresList(List<Proveedores> proveedoresList) {
+        this.proveedoresList = proveedoresList;
     }
 
     @Override

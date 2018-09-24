@@ -16,8 +16,8 @@
     <class>sicor.modelo.Empresas</class>
     <class>sicor.modelo.Partidasdiarios</class>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://10.10.1.208:3306/sicor?zeroDateTimeBehavior=convertToNull"/>
-      <property name="javax.persistence.jdbc.user" value="prueba"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/sicor?zeroDateTimeBehavior=convertToNull"/>
+      <property name="javax.persistence.jdbc.user" value="garesst"/>
       <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
       <property name="javax.persistence.jdbc.password" value="23192921"/>
     </properties>
